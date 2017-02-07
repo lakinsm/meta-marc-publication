@@ -53,7 +53,7 @@ g2filter_data <- abund_data[HMMGroup != 'groupII' | is.na(HMMGroup), ]
 
 class_data <- g2filter_data[AnnotationLevel == 'Class', ]
 
-dantas_class_data <- class_data[TestSet != 'ncba', ]
+dantas_class_data <- class_data[TestSet != 'NCBA', ]
 setkey(dantas_class_data, TruthLabel)
 
 dantas_class_data <- transl_table[dantas_class_data]
@@ -93,11 +93,11 @@ norm_dantas_class_data <- dantas_class_data[, NormAbundance := (100 * Abundance 
 # temp <- norm_dantas_class_data[, .SD, .SDcols=c('NodeName', 'NormAbundance', 'Pipeline')]
 # temp2 <- temp[, sum(NormAbundance) / length(unique(dantas_class_data$SampleName)), by=c('Pipeline', 'NodeName')]
 # #temp2[, TotalRelativeAbundance := (SumNormAbundance), by='Pipeline']
-# temp2 <- temp2[V1 > 1, ]
-# temp2 <- rbind(temp2, data.table(Pipeline=c('Alignment', 'Resfams', 'Alignment'), NodeName=c(rep('Aminocoumarins', 2), 'Glycopeptides'), V1=rep(0, 3)))
+# temp3 <- temp3[V1 > 1, ]
+# temp3 <- rbind(temp3, data.table(Pipeline=c('Alignment', 'Resfams', 'Alignment'), NodeName=c(rep('Aminocoumarins', 2), 'Glycopeptides'), V1=rep(0, 3)))
 # #temp2$TotalRelativeAbundance <- temp2$TotalRelativeAbundance / length(unique(dantas_class_data$SampleName))
 # png('graphs/dantas_class_all_samples.png', width=1200, height=900)
-# g <- ggplot(temp2, aes(x=NodeName, y=V1, fill=Pipeline)) +
+# g <- ggplot(temp3, aes(x=NodeName, y=V1, fill=Pipeline)) +
 #     geom_bar(stat='identity', position='dodge') +
 #     theme(panel.grid.major = element_blank(),
 #           panel.grid.minor = element_blank(),
@@ -123,28 +123,39 @@ norm_dantas_class_data <- dantas_class_data[, NormAbundance := (100 * Abundance 
 
 
 ## MMARC performance on Dantas all classes
-# mmarc_dantas_class_data <- dantas_class_data[Pipeline == 'MMARC', ]
-# 
-# png('graphs/mmarc_dantas_performance_class_all_samples.png', width=1200, height=900)
-# g <- ggplot(temp2, aes(x=NodeName, y=V1, fill=Pipeline)) +
-#     geom_bar(stat='identity', position='dodge') +
-#     theme(panel.grid.major = element_blank(),
-#           panel.grid.minor = element_blank(),
-#           strip.text.x=element_text(size=20),
-#           strip.text.y=element_text(size=20, angle=0),
-#           axis.text.y=element_text(size=20),
-#           axis.text.x=element_text(size=20, angle=45, hjust=1),
-#           axis.title.x=element_text(size=24),
-#           axis.title.y=element_text(size=24),
-#           legend.position="bottom",
-#           panel.margin=unit(0.1, "lines"),
-#           plot.title=element_text(size=30, hjust=0.5),
-#           legend.text=element_text(size=18),
-#           legend.title=element_blank()) +
-#     ggtitle(paste('Mean Sample-wise AMR Class Abundance by Pipeline\nSoil and Pediatric Test Sets')) +
-#     xlab('\nAMR Drug Class') + ylab('Mean Relative Abundance (%)\n')
-# print(g)
-# dev.off()
+mmarc_dantas_class_data <- dantas_class_data[Pipeline == 'MMARC', ]
+performance_mmarc_dantas_class_data <-
+    mmarc_dantas_class_data[, PerformanceCount := ( 
+        ifelse(NodeName == AnalyticTruthLabel | NodeName == 'Multi-drug resistance', Abundance, 0) )]
+performance_mmarc_dantas_class_data[, PerformancePercent := ( 100 * sum(PerformanceCount) / sum(Abundance) ), by='SampleName']
+performance_mmarc_dantas_class_data <- performance_mmarc_dantas_class_data[, .SD, .SDcols=c('SampleName', 'TestSet', 'PerformancePercent', 'AnalyticTruthLabel')]
+setkey(performance_mmarc_dantas_class_data, SampleName)
+performance_mmarc_dantas_class_data <- unique(performance_mmarc_dantas_class_data)
+
+
+png('graphs/mmarc_dantas_performance_class_all_samples.png', width=1200, height=900)
+g <- ggplot(performance_mmarc_dantas_class_data, aes(x=AnalyticTruthLabel, y=PerformancePercent)) +
+    geom_boxplot() + geom_jitter(width=0.1, height=0.1, size=1) + facet_wrap(~TestSet) +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          strip.text.x=element_text(size=20),
+          strip.text.y=element_text(size=20, angle=0),
+          axis.text.y=element_text(size=20),
+          axis.text.x=element_text(size=20, angle=45, hjust=1),
+          axis.title.x=element_text(size=24),
+          axis.title.y=element_text(size=24),
+          legend.position="bottom",
+          panel.margin=unit(0.1, "lines"),
+          plot.title=element_text(size=30, hjust=0.5),
+          legend.text=element_text(size=18),
+          legend.title=element_blank()) +
+    xlab('\nFunctional Metagenomic Truth Label') + ylab('Percent of Reads On-Target\n')
+print(g + ggtitle(paste('Meta-MARC Percent of Hits On-Target by Truth Label\nSoil and Pediatric Test Sets')))
+dev.off()
+
+png('graphs/mmarc_dantas_performance_class_all_samples_notitle.png', width=1200, height=900)
+print(g)
+dev.off()
 
 
 
