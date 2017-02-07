@@ -258,8 +258,16 @@ class_sim_data[, Specificity := ( 100 * TrueNegatives / (TrueNegatives + FalsePo
 
 write.table(class_sim_data, 'graphs/mmarc_class_simulation_metrics.csv', sep=',', row.names=F, col.names=T)
 
+#########################
+#########################
+## NCBA data with HMMs and alignment
 
+ncba_data <- abund_data[TestSet == 'NCBA', ]
+colnames(ncba_metadata)[4] <- 'SampleName'
+setkey(ncba_data, SampleName)
+setkey(ncba_metadata, SampleName)
 
+ncba_data <- ncba_metadata[ncba_data]
 
 
 
