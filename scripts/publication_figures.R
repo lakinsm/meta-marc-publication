@@ -262,12 +262,61 @@ write.table(class_sim_data, 'graphs/mmarc_class_simulation_metrics.csv', sep=','
 #########################
 ## NCBA data with HMMs and alignment
 
-ncba_data <- abund_data[TestSet == 'NCBA', ]
+ncba_data <- abund_data[TestSet == 'NCBA' & HMMGroup != 'groupII' & !is.na(HMMGroup), ]
 colnames(ncba_metadata)[4] <- 'SampleName'
+ncba_metadata$SampleName <- as.character(ncba_metadata$SampleName)
 setkey(ncba_data, SampleName)
 setkey(ncba_metadata, SampleName)
 
 ncba_data <- ncba_metadata[ncba_data]
+ncba_data <- ncba_data[, .SD, .SDcols=!c('BiosampleAccession', 'CattlePenID', 'TestSet', 'DantasSampleSet',
+                                         'TruthLabel', 'HMMGroup')]
+
+ncba_class_data <- ncba_data[AnnotationLevel == 'Class', ]
+ncba_class_data <- ncba_class_data[, TotalAbundance :=( lapply(.SD, sum) ), by=c('Pipeline', 'SampleName', 'NodeName'), .SDcols='Abundance']
+ncba_class_data <- ncba_class_data[, .SD, .SDcols=c('SampleGroup', 'SampleName', 'Pipeline', 'NodeName', 'TotalAbundance')]
+setkeyv(ncba_class_data, c('NodeName', 'SampleName', 'Pipeline'))
+ncba_class_data <- unique(ncba_class_data)
+norm_ncba_class_data <- ncba_class_data[, NormAbundance := ( 100 * TotalAbundance / sum(TotalAbundance) ), by=c('Pipeline', 'SampleName')]
+
+temp <- ncba_data[AnnotationLevel == 'Class', ]
+samplegroup_ncba_class_data <- temp[, GroupAbundance := ( lapply(.SD, sum) ), by=c('SampleGroup', 'Pipeline', 'NodeName'), .SDcols='Abundance']
+samplegroup_ncba_class_data <- samplegroup_ncba_class_data[, .SD, .SDcols=!'Abundance']
+setkeyv(samplegroup_ncba_class_data, c('SampleGroup', 'Pipeline', 'NodeName'))
+samplegroup_ncba_class_data <- unique(samplegroup_ncba_class_data)
+
+temp2 <- ncba_class_data[, .SD, .SDcols=c('Pipeline', 'NodeName', 'TotalAbundance')]
+temp2 <- temp2[, NodeAbundance := ( lapply(.SD, sum)), by=c('Pipeline', 'NodeName'), .SDcols='TotalAbundance']
+temp2 <- temp2[, .SD, .SDcols=!'TotalAbundance']
+setkeyv(temp2, c('Pipeline', 'NodeName'))
+temp2 <- unique(temp2)
+
+png('graphs/ncba_class_all_samples.png', width=1200, height=900)
+g <- ggplot(temp2, aes(x=NodeName, y=NodeAbundance, fill=Pipeline)) +
+    geom_bar(stat='identity', position='dodge') +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          strip.text.x=element_text(size=20),
+          strip.text.y=element_text(size=20, angle=0),
+          axis.text.y=element_text(size=20),
+          axis.text.x=element_text(size=20, angle=45, hjust=1),
+          axis.title.x=element_text(size=24),
+          axis.title.y=element_text(size=24),
+          legend.position="bottom",
+          panel.margin=unit(0.1, "lines"),
+          plot.title=element_text(size=30, hjust=0.5),
+          legend.text=element_text(size=18),
+          legend.title=element_blank()) +
+    xlab('\nAMR Drug Class') + ylab('Number of Reads Classified\n') +
+    scale_fill_discrete(drop=F) + scale_fill_brewer(palette = 'Set2')
+print(g + ggtitle(paste('AMR Class Abundance by Pipeline\nPRJNA292471 Metagenomic Data Set')))
+dev.off()
+
+png('graphs/ncba_class_all_samples_notitle.png', width=1200, height=900)
+print(g)
+dev.off()
+
+
 
 
 
