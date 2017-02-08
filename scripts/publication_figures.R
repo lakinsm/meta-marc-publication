@@ -92,7 +92,7 @@ temp <- norm_dantas_class_data[, .SD, .SDcols=c('NodeName', 'NormAbundance', 'Pi
 temp2 <- temp[, sum(NormAbundance) / length(unique(dantas_class_data$SampleName)), by=c('Pipeline', 'NodeName')]
 #temp2[, TotalRelativeAbundance := (SumNormAbundance), by='Pipeline']
 temp3 <- temp2[V1 > 1, ]
-temp3 <- rbind(temp3, data.table(Pipeline=c('Alignment', 'Resfams', 'Alignment'), NodeName=c(rep('Aminocoumarins', 2), 'Glycopeptides'), V1=rep(0, 3)))
+temp3 <- rbind(temp3, data.table(Pipeline=c('Alignment', 'Resfams', 'Alignment', 'Resfams'), NodeName=c(rep('Fluoroquinolones', 2), rep('Rifampin', 2)), V1=rep(0, 4)))
 #temp2$TotalRelativeAbundance <- temp2$TotalRelativeAbundance / length(unique(dantas_class_data$SampleName))
 png('graphs/dantas_class_all_samples.png', width=1200, height=900)
 g <- ggplot(temp3, aes(x=NodeName, y=V1, fill=Pipeline)) +
@@ -111,7 +111,7 @@ g <- ggplot(temp3, aes(x=NodeName, y=V1, fill=Pipeline)) +
           legend.text=element_text(size=18),
           legend.title=element_blank()) +
     xlab('\nAMR Drug Class') + ylab('Mean Relative Abundance (%)\n') +
-    scale_fill_discrete(drop=F) + scale_fill_brewer(palette = 'Set2')
+    scale_fill_brewer(palette = 'Set2', drop=F)
 print(g + ggtitle(paste('Mean Sample-wise AMR Class Abundance by Pipeline\nSoil and Pediatric Test Sets')))
 dev.off()
 
@@ -291,6 +291,30 @@ temp2 <- temp2[, .SD, .SDcols=!'TotalAbundance']
 setkeyv(temp2, c('Pipeline', 'NodeName'))
 temp2 <- unique(temp2)
 
+coeff = 0.01
+mmarc_threshold <- coeff * sum(temp2$NodeAbundance[temp2$Pipeline == 'MMARC'])
+align_threshold <- coeff * sum(temp2$NodeAbundance[temp2$Pipeline == 'Alignment'])
+temp2 <- temp2[!(NodeAbundance < mmarc_threshold & Pipeline == 'MMARC') & !(NodeAbundance < align_threshold & Pipeline == 'Alignment'), ]
+
+pipelines <- unique(as.character(temp2$Pipeline))
+nodenames <- unique(as.character(temp2$NodeName))
+
+zero_entries = data.table(Pipeline=character(),
+                          NodeName=character(),
+                          NodeAbundance=numeric())
+for( p in 1:length(pipelines) ) {
+    for( n in 1:length(nodenames) ) {
+        local_temp <- temp2[Pipeline == pipelines[p] & NodeName == nodenames[n],]
+        if( nrow(local_temp) == 0 ) {
+            zero_entries <- rbind(zero_entries, data.table(Pipeline=pipelines[p],
+                                                           NodeName=nodenames[n],
+                                                           NodeAbundance=0))
+        }
+    }
+}
+
+temp2 <- rbind(temp2, zero_entries)
+
 png('graphs/ncba_class_all_samples.png', width=1200, height=900)
 g <- ggplot(temp2, aes(x=NodeName, y=NodeAbundance, fill=Pipeline)) +
     geom_bar(stat='identity', position='dodge') +
@@ -309,7 +333,7 @@ g <- ggplot(temp2, aes(x=NodeName, y=NodeAbundance, fill=Pipeline)) +
           legend.title=element_blank()) +
     xlab('\nAMR Drug Class') + ylab('Number of Reads Classified\n') +
     scale_fill_discrete(drop=F) + scale_fill_brewer(palette = 'Set2')
-print(g + ggtitle(paste('AMR Class Abundance by Pipeline\nPRJNA292471 Metagenomic Data Set')))
+print(g + ggtitle(paste('AMR Class Abundance for Alignment and Meta-MARC\nPRJNA292471 Metagenomic Data Set')))
 dev.off()
 
 png('graphs/ncba_class_all_samples_notitle.png', width=1200, height=900)
@@ -344,7 +368,7 @@ g <- ggplot(cov_data, aes(x=Coverage)) +
           legend.text=element_text(size=18),
           legend.title=element_blank()) +
     xlab('\nPercent Gene Coverage') + ylab('Count\n')
-print(g + ggtitle(paste('Alignment Coverage Distribution for All Genes\nPRJNA292471 Metagenomic Data Set')))
+print(g + ggtitle(paste('Alignment Coverage Distribution for All Genes by Data Set')))
 dev.off()
 
 png('graphs/ncba_alignment_all_samples_notitle.png', width=1200, height=900)
