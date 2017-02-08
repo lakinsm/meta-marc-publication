@@ -316,9 +316,38 @@ png('graphs/ncba_class_all_samples_notitle.png', width=1200, height=900)
 print(g)
 dev.off()
 
+#########################
+#########################
+## Alignment coverage histograms for each test set
 
+cov_data <- data.table(read.csv('analytic_data/alignment_cov.csv'))
+cov_data$TestSet <- gsub('ncba', 'PRJNA292471', cov_data$TestSet)
+cov_data$TestSet <- gsub('soil', 'Soil', cov_data$TestSet)
+cov_data$TestSet <- gsub('pediatric', 'Pediatric', cov_data$TestSet)
 
+png('graphs/ncba_alignment_all_samples.png', width=1200, height=900)
+g <- ggplot(cov_data, aes(x=Coverage)) +
+    geom_histogram(binwidth=0.03) + 
+    geom_vline(xintercept=0.8, color='red', size=1) +
+    facet_wrap(~TestSet, ncol=1) +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          strip.text.x=element_text(size=20),
+          strip.text.y=element_text(size=20, angle=0),
+          axis.text.y=element_text(size=20),
+          axis.text.x=element_text(size=20),
+          axis.title.x=element_text(size=24),
+          axis.title.y=element_text(size=24),
+          legend.position="bottom",
+          panel.margin=unit(0.1, "lines"),
+          plot.title=element_text(size=30, hjust=0.5),
+          legend.text=element_text(size=18),
+          legend.title=element_blank()) +
+    xlab('\nPercent Gene Coverage') + ylab('Count\n')
+print(g + ggtitle(paste('Alignment Coverage Distribution for All Genes\nPRJNA292471 Metagenomic Data Set')))
+dev.off()
 
-
-
+png('graphs/ncba_alignment_all_samples_notitle.png', width=1200, height=900)
+print(g)
+dev.off()
 
