@@ -1,7 +1,22 @@
 Figure 1. Sample-wise mean relative abundance by pipeline for soil and pediatric test sets.  Meta-MARC identifies a variety of AMR targets with at least as much confidence as alignment and is relatively consistent with the Resfams models.  Fewer multi-drug targets were identified by Meta-MARC due to the underlying curation of the database used for constructing the Meta-MARC models.  Relative abundance was calculated for each sample within each pipeline category, then each relative abundance value was averaged over the samples within each pipeline category.  Of the 388 samples that comprise the Soil and Pediatric test sets, Alignment identified AMR targets in 178 samples (45.9%), Meta-MARC identified AMR targets in 387 samples (99.7%), and Resfams identified AMR targets in all samples (100%).
 
-Figure 2. Percent of hits classified as on-target for each truth label by test set and pipeline.
+Figure 1. Total (bar) and on-target (crosshair) abundance for each functional metagenomic truth label by test set and pipeline. Meta-marc classified the most true positives in every functional metagenomic category.  Short-read based methods (alignment and Meta-MARC on FASTQ data) performed better on the Pediatric data than the Soil data. Of the 388 samples that comprise the Soil and Pediatric test sets, Alignment identified AMR targets in 161 samples (41.5%), MMARC on FASTQ data 305 samples (78.7%), MMARC on assembled data 384 samples (98.9%), and Resfams on assembled data 377 samples (97.2%).
 
-Figure 3. Total and on-target abundance for each truth label by test set and pipeline.  
+Figure 2. 
 
 Table 1. Simulation metrics 
+
+
+15
+
+AMR
+CARD
+HMM
+DNA
+FASTA
+FASTQ
+NCBI
+ART
+BWA
+ORF
+
