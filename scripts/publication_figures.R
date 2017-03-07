@@ -9,7 +9,7 @@ library(RColorBrewer)
 library(data.table)
 library(scales)
 
-setwd("~/Documents/morleyBioinformatics/GigaScience_HMM_Publication/publication")
+setwd("~/Documents/morleyBioinformatics/GigaScience_HMM_Publication/mmarc_production_repositories/meta-marc-publication/")
 
 abund_data <- data.table(read.csv('analytic_data/mmarc_publication_analytic_data.csv'))
 ncba_metadata <- data.table(read.csv('metadata/PRJNA292471_metadata.csv'))

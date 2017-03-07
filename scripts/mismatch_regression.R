@@ -4,9 +4,9 @@ library(data.table)
 library(scales)
 library(arm)
 
-setwd('/home/lakinsm/Documents/morleyBioinformatics/GigaScience_HMM_Publication/publication/')
+setwd('/home/lakinsm/Documents/morleyBioinformatics/GigaScience_HMM_Publication/mmarc_production_repositories/meta-marc-publication/')
 
-rdata <- data.table(read.csv('analytic_data/5March_temp_mismatch_data.csv',
+rdata <- data.table(read.csv('analytic_data/mismatch_analytic_data.csv',
                              col.names=c('TestSet', 'SampleName', 'DantasSampleSet', 'TruthLabel', 'Pipeline', 'HMMGroup',
                                          'AnnotationLevel', 'NodeName', 'MinorAlleleCount', 'ReadCount')))
 
