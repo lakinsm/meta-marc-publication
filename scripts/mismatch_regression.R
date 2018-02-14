@@ -4,7 +4,7 @@ library(data.table)
 library(scales)
 library(arm)
 
-setwd('/home/lakinsm/Documents/morleyBioinformatics/GigaScience_HMM_Publication/mmarc_production_repositories/meta-marc-publication/')
+setwd("/mnt/manuscripts/CommunicationsBiology_HMM_Publication/meta-marc-publication/")
 
 rdata <- data.table(read.csv('analytic_data/mismatch_analytic_data.csv',
                              col.names=c('TestSet', 'SampleName', 'DantasSampleSet', 'TruthLabel', 'Pipeline', 'HMMGroup',
@@ -18,9 +18,13 @@ df1 <- data.frame(a = c(1, 1, 2, 2), b = c(48, 50, 50, 48))
 df2 <- data.frame(a = c(2, 2, 3, 3), b = c(52, 54, 54, 52))
 df3 <- data.frame(a = c(2, 2, 4, 4), b = c(56, 58, 58, 56))
 
+translpipe <- c('Alignment'='Alignment', 'MMARC'='Meta-MARC HTS Reads', 'MMARC-assembled'='Meta-MARC Assembled', 'Resfams'='Resfams')
+
+rdata_class_plot <- rdata_class
+rdata_class_plot$Pipeline <- translpipe[rdata_class_plot$Pipeline]
 
 png('graphs/ncba_mismatch_by_pipeline.png', width=1200, height=900)
-g <- ggplot(rdata_class, aes(x=Pipeline, y=AvgMinorAlleleCount)) + geom_boxplot(outlier.shape = NA) +
+g <- ggplot(rdata_class_plot, aes(x=Pipeline, y=AvgMinorAlleleCount)) + geom_boxplot(outlier.shape = NA) +
     #geom_jitter(width=0.3, height=0, size=1, alpha=0.1) +
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
@@ -34,12 +38,12 @@ g <- ggplot(rdata_class, aes(x=Pipeline, y=AvgMinorAlleleCount)) + geom_boxplot(
           plot.title=element_text(size=30, hjust=0.5),
           legend.text=element_text(size=18),
           legend.title=element_blank()) +
-    xlab('\nPipeline') + ylab('Average Non-major Allele Count per Read\n') +
+    xlab('\nMethod') + ylab('Average Non-major Allele Count per Read\n') +
     ylim(c(-2, 60)) +
     geom_line(data = df1, aes(x = a, y = b)) + annotate("text", x = 1.5, y = 51, label = "***", size = 8) +
     geom_line(data = df2, aes(x = a, y = b)) + annotate("text", x = 2.5, y = 55, label = "***", size = 8) +
     geom_line(data = df3, aes(x = a, y = b)) + annotate("text", x = 3, y = 59, label = "***", size = 8)
-print(g + ggtitle(paste('Average Read-wise Genetic Variation by Pipeline\n')))
+print(g + ggtitle(paste('Average Read-wise Genetic Variation by Method\n')))
 dev.off()
 
 png('graphs/ncba_mismatch_by_pipeline_notext.png', width=1200, height=900)

@@ -9,7 +9,7 @@ library(RColorBrewer)
 library(data.table)
 library(scales)
 
-setwd("~/Documents/morleyBioinformatics/GigaScience_HMM_Publication/mmarc_production_repositories/meta-marc-publication/")
+setwd("/mnt/manuscripts/CommunicationsBiology_HMM_Publication/meta-marc-publication/")
 
 abund_data <- data.table(read.csv('analytic_data/mmarc_publication_analytic_data.csv'))
 ncba_metadata <- data.table(read.csv('metadata/PRJNA292471_metadata.csv'))
@@ -203,9 +203,11 @@ for( s in 1:length(dantas_sample_names) ) {
 
 performance_mmarc_dantas_class_data <- rbind(performance_mmarc_dantas_class_data, zero_entries)
 
+performance_mmarc_dantas_class_data_plot <- performance_mmarc_dantas_class_data
+levels(performance_mmarc_dantas_class_data_plot$Pipeline) <- c('Alignment', 'Meta-MARC HTS Reads', 'Meta-MARC Assembled', 'Resfams')
 
 png('graphs/mmarc_dantas_performance_class_all_samples.png', width=1200, height=900)
-g <- ggplot(performance_mmarc_dantas_class_data, aes(x=AnalyticTruthLabel, y=PerformancePercent)) +
+g <- ggplot(performance_mmarc_dantas_class_data_plot, aes(x=AnalyticTruthLabel, y=PerformancePercent)) +
     geom_boxplot() + geom_jitter(width=0.1, height=0, size=1) +
     facet_grid(Pipeline ~ TestSet, switch='y') +
     theme(panel.grid.major = element_blank(),
@@ -222,7 +224,7 @@ g <- ggplot(performance_mmarc_dantas_class_data, aes(x=AnalyticTruthLabel, y=Per
           legend.text=element_text(size=18),
           legend.title=element_blank()) + scale_y_continuous(labels = comma) +
     xlab('\nFunctional Metagenomic Truth Label') + ylab('Percent of Reads On-Target\n')
-print(g + ggtitle(paste('Percent of Hits On-Target for each Truth Label\nby Test Set and Pipeline\n')))
+print(g + ggtitle(paste('Percent of Hits On-Target for each Truth Label\nby Test Set and Method\n')))
 dev.off()
 
 png('graphs/mmarc_dantas_performance_class_all_samples_notitle.png', width=1200, height=900)
@@ -279,9 +281,11 @@ for( s in 1:length(dantas_sample_names) ) {
 
 performance_mmarc_dantas_class_data2 <- rbind(performance_mmarc_dantas_class_data2, zero_entries)
 
+performance_mmarc_dantas_class_data2_plot <- performance_mmarc_dantas_class_data2
+levels(performance_mmarc_dantas_class_data2_plot$Pipeline) <- c('Alignment', 'Meta-MARC HTS Reads', 'Meta-MARC Assembled', 'Resfams')
 
 png('graphs/mmarc_dantas_performance_class_all_samples_exact_match.png', width=1200, height=900)
-g <- ggplot(performance_mmarc_dantas_class_data2, aes(x=AnalyticTruthLabel, y=PerformancePercent)) +
+g <- ggplot(performance_mmarc_dantas_class_data2_plot, aes(x=AnalyticTruthLabel, y=PerformancePercent)) +
     geom_boxplot(outlier.shape=NA) + geom_jitter(width=0.1, height=0, size=1) +
     facet_grid(Pipeline ~ TestSet, switch='y') +
     theme(panel.grid.major = element_blank(),
@@ -326,10 +330,14 @@ temp <- temp[, lapply(.SD, sum), by=c('Pipeline', 'TestSet', 'AnalyticTruthLabel
 #                         value.name='Abundance')
 # performance_raw <- performance_raw[Pipeline != 'Resfams', ]
 
+temp_plot <- temp
+
+levels(temp_plot$Pipeline) <- c('Alignment', 'Meta-MARC HTS Reads', 'Meta-MARC Assembled', 'Resfams')
+
 png('graphs/mmarc_dantas_abundance_class_all_samples.png', width=1200, height=900)
-g <- ggplot(temp, aes(x=AnalyticTruthLabel, fill=Pipeline)) +
-    geom_bar(data=temp, aes(y=TotalReadsIdentified), position='dodge', stat='identity') +
-    geom_point(data=temp, aes(y=NumberReadsOnTarget), position=position_dodge(width=0.9), shape=3, size=6) +
+g <- ggplot(temp_plot, aes(x=AnalyticTruthLabel, fill=Pipeline)) +
+    geom_bar(data=temp_plot, aes(y=TotalReadsIdentified), position='dodge', stat='identity') +
+    geom_point(data=temp_plot, aes(y=NumberReadsOnTarget), position=position_dodge(width=0.9), shape=3, size=4) +
     facet_wrap(~TestSet, nrow=1, ncol=2, scale='free_y') +
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
@@ -439,8 +447,12 @@ for( p in 1:length(pipelines) ) {
 
 temp2 <- rbind(temp2, zero_entries)
 
+temp2_plot <- temp2
+
+levels(temp2_plot$Pipeline) <- c('Alignment', 'Meta-MARC HTS Reads', 'Meta-MARC Assembled', 'Resfams')
+
 png('graphs/ncba_class_all_samples.png', width=1200, height=900)
-g <- ggplot(temp2, aes(x=NodeName, y=NodeAbundance, fill=Pipeline)) +
+g <- ggplot(temp2_plot, aes(x=NodeName, y=NodeAbundance, fill=Pipeline)) +
     geom_bar(stat='identity', position='dodge') +
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
