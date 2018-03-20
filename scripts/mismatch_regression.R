@@ -14,9 +14,9 @@ rdata_class <- rdata[!is.na(NodeName) & AnnotationLevel == 'Class' & (HMMGroup !
 
 rdata_class[, AvgMinorAlleleCount := ( MinorAlleleCount / ReadCount )]
 
-df1 <- data.frame(a = c(1, 1, 2, 2), b = c(48, 50, 50, 48))
+df1 <- data.frame(a = c(1, 1, 3, 3), b = c(48, 50, 50, 48))
 df2 <- data.frame(a = c(2, 2, 3, 3), b = c(52, 54, 54, 52))
-df3 <- data.frame(a = c(2, 2, 4, 4), b = c(56, 58, 58, 56))
+df3 <- data.frame(a = c(3, 3, 4, 4), b = c(56, 58, 58, 56))
 
 translpipe <- c('Alignment'='Alignment', 'MMARC'='Meta-MARC HTS Reads', 'MMARC-assembled'='Meta-MARC Assembled', 'Resfams'='Resfams')
 
@@ -42,7 +42,7 @@ g <- ggplot(rdata_class_plot, aes(x=Pipeline, y=AvgMinorAlleleCount)) + geom_box
     ylim(c(-2, 60)) +
     geom_line(data = df1, aes(x = a, y = b)) + annotate("text", x = 1.5, y = 51, label = "***", size = 8) +
     geom_line(data = df2, aes(x = a, y = b)) + annotate("text", x = 2.5, y = 55, label = "***", size = 8) +
-    geom_line(data = df3, aes(x = a, y = b)) + annotate("text", x = 3, y = 59, label = "***", size = 8)
+    geom_line(data = df3, aes(x = a, y = b)) + annotate("text", x = 3.5, y = 59, label = "***", size = 8)
 print(g + ggtitle(paste('Average Read-wise Genetic Variation by Method\n')))
 dev.off()
 
@@ -63,9 +63,9 @@ rcast2 <- dcast(rdata_class, SampleName + NodeName ~ Pipeline, value.var='AvgMin
 wilcox.test(rcast$Alignment, rcast$HMMFASTQ)
 
 # Pairwise
-wilcox.test(rcast2$MMARC, rcast2[['MMARC-assembled']])$p.value * 3
-wilcox.test(rcast2$MMARC, rcast2[['Resfams']])$p.value * 3
-wilcox.test(rcast2$MMARC, rcast2[['Alignment']])$p.value * 3
+print(wilcox.test(rcast2$MMARC, rcast2[['MMARC-assembled']])$p.value * 3)
+print(wilcox.test(rcast2$MMARC, rcast2[['Resfams']])$p.value * 3)
+print(wilcox.test(rcast2$MMARC, rcast2[['Alignment']])$p.value * 3)
 
 
 
