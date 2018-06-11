@@ -21,6 +21,7 @@
 **scripts**
 
   * alignment\_mismatch\_subroutine.py - Python script used to parse alignment SAM files for the genetic variation analysis of the PRJNA292471 dataset
+  * auc\_summary.txt - Text file containing R tabular output for the AUC summary statistics (ROC and PR)
   * fix\_formating.sh - Bash script to change short-hand sample names to publication sample names
   * mismatch\_regression.R - R script used to analyze the genetic variation data from the PRJNA292471 dataset
   * mmarc\_contig\_mismatch\_subroutine.py - Python script used to parse Meta-MARC assembled SAM files for the genetic variation analysis of the PRJNA292471 dataset
@@ -29,6 +30,7 @@
   * publication\_figures.R - R script used to generate publication figures
   * resfams\_contig\_mismatch\_subroutine.py - Python script used to parse Resfams SAM files for the genetic variation analysis of the PRJNA292471 dataset
   * resfams\_reads\_aligned.py - Python script used to parse Resfams SAM files for the Soil, Pediatric, and PRJNA292471 dataset analyses
+  * roc\_plotting.R - R script used to generate the ROC and PR plots and calculate AUC
 
 All data is under an MIT license.  If you use this data, please cite the associated publication (TBD).
 

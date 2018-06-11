@@ -1,0 +1,35 @@
+PR-AUC:
+$Class
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.5347  0.8032  0.9286  0.8895  1.0000  1.0000 
+
+$Group
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0009743 0.7829929 1.0000000 0.8890597 1.0000000 1.0000000 
+
+$Mechanism
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3467  0.7639  0.9457  0.8721  1.0000  1.0000 
+
+$Model
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.002444 0.527800 1.000000 0.798016 1.000000 1.000000 
+
+
+
+ROC-AUC:
+$Class
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.9987  0.9994  0.9998  0.9997  1.0000  1.0000 
+
+$Group
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.9390  0.9998  1.0000  0.9992  1.0000  1.0001 
+
+$Mechanism
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.9647  0.9998  0.9999  0.9991  1.0000  1.0000 
+
+$Model
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.6108  0.9997  1.0000  0.9981  1.0000  1.0000 
