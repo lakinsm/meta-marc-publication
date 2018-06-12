@@ -158,6 +158,42 @@ dev.off()
 
 pr_auc <- full_roc[, calculate_trap_auc_pr(Precision, Recall), by=c('Level', 'NodeName')]
 roc_auc <- full_roc[, calculate_trap_auc_roc(Sensitivity, OneMinusSpecificity), by=c('Level', 'NodeName')]
+sens <- roc[, ]
 
-print(tapply(pr_auc$V1, pr_auc$Level, summary))
+
+max_evalue <- 0
+optimal <- 0
+
+for(e in unique(roc$Evalue)) {
+  eroc <- roc[Evalue == e]
+  mean_precision <- tapply(eroc$Precision, eroc$Level, mean)
+  mean_recall <- tapply(eroc$Recall, eroc$Level, mean)
+  if((mean_precision['Class'] * mean_recall['Class']) > optimal) {
+    max_evalue <- as.numeric(e)
+    optimal <- (mean_precision['Class'] * mean_recall['Class'])
+  }
+}
+
+print(max_evalue)
+
+e25roc <- roc[Evalue == '1e-25']
+
+
+# Table 1 summary statistics
+cat('Sensitivity:\n')
+print(tapply(e25roc$Sensitivity, e25roc$Level, summary))
+
+cat('\n\nSpecificity:\n')
+print(tapply(e25roc$Specificity, e25roc$Level, summary))
+
+cat('\n\nPrecision:\n')
+print(tapply(e25roc$Precision, e25roc$Level, summary))
+
+cat('\n\nRecall:\n')
+print(tapply(e25roc$Recall, e25roc$Level, summary))
+
+cat('\n\nROC-AUC:\n')
 print(tapply(roc_auc$V1, roc_auc$Level, summary))
+
+cat('\n\nPR-AUC:\n')
+print(tapply(pr_auc$V1, pr_auc$Level, summary))

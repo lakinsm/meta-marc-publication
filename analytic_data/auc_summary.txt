@@ -1,19 +1,77 @@
-PR-AUC:
+[1] 1e-25
+Sensitivity:
 $Class
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.5347  0.8032  0.9286  0.8895  1.0000  1.0000 
+ 0.9746  0.9901  0.9950  0.9931  0.9996  1.0000 
 
 $Group
-     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-0.0009743 0.7829929 1.0000000 0.8890597 1.0000000 1.0000000 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3226  0.9976  1.0000  0.9891  1.0000  1.0000 
 
 $Mechanism
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.3467  0.7639  0.9457  0.8721  1.0000  1.0000 
+ 0.8725  0.9860  0.9996  0.9894  1.0000  1.0000 
 
 $Model
-    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-0.002444 0.527800 1.000000 0.798016 1.000000 1.000000 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.9972  1.0000  0.9750  1.0000  1.0000 
+
+
+
+Specificity:
+$Class
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.9976  0.9995  0.9998  0.9996  1.0000  1.0000 
+
+$Group
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.9702  0.9993  1.0000  0.9992  1.0000  1.0000 
+
+$Mechanism
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.9943  0.9994  0.9998  0.9995  1.0000  1.0000 
+
+$Model
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.9743  0.9993  1.0000  0.9992  1.0000  1.0000 
+
+
+
+Precision:
+$Class
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.6061  0.7773  0.8833  0.8756  1.0000  1.0000 
+
+$Group
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.08731 0.74738 1.00000 0.85646 1.00000 1.00000 
+
+$Mechanism
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.4977  0.7379  0.8817  0.8558  1.0000  1.0000 
+
+$Model
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.4998  1.0000  0.7573  1.0000  1.0000 
+
+
+
+Recall:
+$Class
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.9746  0.9901  0.9950  0.9931  0.9996  1.0000 
+
+$Group
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3226  0.9976  1.0000  0.9891  1.0000  1.0000 
+
+$Mechanism
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.8725  0.9860  0.9996  0.9894  1.0000  1.0000 
+
+$Model
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.9972  1.0000  0.9750  1.0000  1.0000 
 
 
 
@@ -33,3 +91,22 @@ $Mechanism
 $Model
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.6108  0.9997  1.0000  0.9981  1.0000  1.0000 
+
+
+
+PR-AUC:
+$Class
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.5347  0.8032  0.9286  0.8895  1.0000  1.0000 
+
+$Group
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0009743 0.7829929 1.0000000 0.8890597 1.0000000 1.0000000 
+
+$Mechanism
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3467  0.7639  0.9457  0.8721  1.0000  1.0000 
+
+$Model
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.002444 0.527800 1.000000 0.798016 1.000000 1.000000
