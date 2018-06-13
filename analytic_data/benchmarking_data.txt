@@ -1,0 +1,206 @@
+BWA-MEM:
+	Command being timed: "bwa mem -t 1 /home/lakinsm/hmm_simulations/databases/megares_database_v1.02.fasta /home/lakinsm/hmm_simulations/benchmarking/simulated_test_reads1.fq /home/lakinsm/hmm_simulations/benchmarking/simulated_test_reads2.fq"
+	User time (seconds): 2.46
+	System time (seconds): 0.03
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.51
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 23076
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 8326
+	Voluntary context switches: 11
+	Involuntary context switches: 217
+	Swaps: 0
+	File system inputs: 120
+	File system outputs: 6792
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+
+Meta-MARC HTS G1
+	Command being timed: "nhmmer --dna --notextw --cpu 1 --tblout /home/lakinsm/hmm_simulations/benchmarking/outfiles/mmarc_hts1.tblout /home/lakinsm/meta-marc/src/HMMs/mmarc_groupI.hmm /home/lakinsm/hmm_simulations/benchmarking/simulated_test_reads_all.fasta"
+	User time (seconds): 269.54
+	System time (seconds): 0.92
+	Percent of CPU this job got: 101%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 4:27.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 36160
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 214825
+	Voluntary context switches: 2393
+	Involuntary context switches: 24062
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 11552
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+
+Meta-MARC HTS G2
+	Command being timed: "nhmmer --dna --notextw --cpu 1 --tblout /home/lakinsm/hmm_simulations/benchmarking/outfiles/mmarc_hts2.tblout /home/lakinsm/meta-marc/src/HMMs/mmarc_groupII.hmm /home/lakinsm/hmm_simulations/benchmarking/simulated_test_reads_all.fasta"
+	User time (seconds): 83.04
+	System time (seconds): 0.58
+	Percent of CPU this job got: 101%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:22.32
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 41736
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 125748
+	Voluntary context switches: 989
+	Involuntary context switches: 7505
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 1160
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+
+Meta-MARC HTS G3
+	Command being timed: "nhmmer --dna --notextw --cpu 1 --tblout /home/lakinsm/hmm_simulations/benchmarking/outfiles/mmarc_hts3.tblout /home/lakinsm/meta-marc/src/HMMs/mmarc_groupIII.hmm /home/lakinsm/hmm_simulations/benchmarking/simulated_test_reads_all.fasta"
+	User time (seconds): 512.09
+	System time (seconds): 2.02
+	Percent of CPU this job got: 101%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 8:26.09
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 44860
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 399259
+	Voluntary context switches: 5512
+	Involuntary context switches: 46307
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 13192
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+
+Meta-MARC Contigs G1
+	Command being timed: "nhmmer --dna --notextw --cpu 1 --tblout /home/lakinsm/hmm_simulations/benchmarking/outfiles/mmarc_c1.tblout /home/lakinsm/meta-marc/src/HMMs/mmarc_groupI.hmm /home/lakinsm/hmm_simulations/databases/mmarc_test_set.fasta"
+	User time (seconds): 464.29
+	System time (seconds): 5.80
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 7:49.34
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 305396
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 967597
+	Voluntary context switches: 1741
+	Involuntary context switches: 40523
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 3480
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+
+Meta-MARC Contigs G2
+	Command being timed: "nhmmer --dna --notextw --cpu 1 --tblout /home/lakinsm/hmm_simulations/benchmarking/outfiles/mmarc_c2.tblout /home/lakinsm/meta-marc/src/HMMs/mmarc_groupII.hmm /home/lakinsm/hmm_simulations/databases/mmarc_test_set.fasta"
+	User time (seconds): 126.98
+	System time (seconds): 6.94
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:13.60
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 258088
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 828584
+	Voluntary context switches: 668
+	Involuntary context switches: 11644
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 256
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+
+Meta-MARC Contigs G3
+	Command being timed: "nhmmer --dna --notextw --cpu 1 --tblout /home/lakinsm/hmm_simulations/benchmarking/outfiles/mmarc_c3.tblout /home/lakinsm/meta-marc/src/HMMs/mmarc_groupIII.hmm /home/lakinsm/hmm_simulations/databases/mmarc_test_set.fasta"
+	User time (seconds): 860.34
+	System time (seconds): 23.90
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 14:42.20
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 314428
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4324218
+	Voluntary context switches: 4064
+	Involuntary context switches: 76628
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 4056
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+
+Resfams Translated Contigs:
+	Command being timed: "hmmsearch --notextw --cpu 1 --tblout /home/lakinsm/hmm_simulations/benchmarking/outfiles/resfams.tblout /home/lakinsm/resfams_hmms/Resfams-full.hmm /home/lakinsm/hmm_simulations/benchmarking/mmarc_test_set_protein_clean.fasta"
+	User time (seconds): 23.74
+	System time (seconds): 0.21
+	Percent of CPU this job got: 98%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:24.30
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 59652
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 27598
+	Voluntary context switches: 684
+	Involuntary context switches: 2373
+	Swaps: 0
+	File system inputs: 344
+	File system outputs: 2528
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
