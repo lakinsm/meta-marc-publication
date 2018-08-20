@@ -26,8 +26,8 @@ rdata_class_plot$Pipeline <- translpipe[rdata_class_plot$Pipeline]
 png('graphs/ncba_mismatch_by_pipeline.png', width=1200, height=900)
 g <- ggplot(rdata_class_plot, aes(x=Pipeline, y=AvgMinorAlleleCount)) + geom_boxplot(outlier.shape = NA) +
     #geom_jitter(width=0.3, height=0, size=1, alpha=0.1) +
-    theme(panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
+    theme(panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank(),
           strip.text.x=element_text(size=20),
           strip.text.y=element_text(size=20, angle=180),
           axis.text.y=element_text(size=22),

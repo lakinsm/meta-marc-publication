@@ -111,17 +111,19 @@ medianroc <- rbind(data.table(
 
 meanroc_plot <- ggplot(meanroc, aes(x=OneMinusSpecificity, y=Sensitivity, group=Level, color=Level)) +
   geom_line(size=1.8) + ylim(0, 1) + xlim(0, 1) +
+  scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0), limits=c(0, 1)) +
   theme(
-    panel.grid.minor = element_blank(),
+    #panel.grid.minor = element_blank(),
     axis.text.y=element_text(size=20),
     axis.text.x=element_text(size=20),
     axis.title.x=element_text(size=24),
     axis.title.y=element_text(size=24),
     legend.position="bottom",
-    panel.margin=unit(0.1, "lines"),
+    #panel.margin=unit(0.1, "lines"),
     plot.title=element_text(size=30, hjust=0.5),
     legend.text=element_text(size=18),
-    legend.title=element_blank()
+    legend.title=element_blank(),
+    plot.margin = margin(1, 1, 1, 1, 'cm')
   ) + xlab('1 - Specificity')
 png('/mnt/manuscripts/CommunicationsBiology_HMM_Publication/meta-marc-publication/graphs/mean_roc.png', width=1200, height=900)
 print(meanroc_plot)
@@ -129,17 +131,19 @@ dev.off()
 
 mean_precisionrecall_plot <- ggplot(meanroc, aes(x=Recall, y=Precision, group=Level, color=Level)) +
   geom_line(size=1.8) + xlim(c(0, 1)) + ylim(c(0, 1)) +
+  scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
   theme(
-    panel.grid.minor = element_blank(),
+   # panel.grid.minor = element_blank(),
     axis.text.y=element_text(size=20),
     axis.text.x=element_text(size=20),
     axis.title.x=element_text(size=24),
     axis.title.y=element_text(size=24),
     legend.position="none",
-    panel.margin=unit(0.1, "lines"),
+    #panel.margin=unit(0.1, "lines"),
     plot.title=element_text(size=30, hjust=0.5),
     legend.text=element_text(size=18),
-    legend.title=element_blank()
+    legend.title=element_blank(),
+    plot.margin = margin(1, 1, 1, 1, 'cm')
   )
 png('/mnt/manuscripts/CommunicationsBiology_HMM_Publication/meta-marc-publication/graphs/mean_pr.png', width=1200, height=900)
 print(mean_precisionrecall_plot)
@@ -197,3 +201,11 @@ print(tapply(roc_auc$V1, roc_auc$Level, summary))
 
 cat('\n\nPR-AUC:\n')
 print(tapply(pr_auc$V1, pr_auc$Level, summary))
+
+e10roc <- roc[Evalue == '10']
+
+print(tapply(e10roc$Precision, e10roc$Level, mean))
+print(tapply(e10roc$Precision, e10roc$Level, sd))
+
+print(tapply(e10roc$Recall, e10roc$Level, mean))
+print(tapply(e10roc$Recall, e10roc$Level, sd))

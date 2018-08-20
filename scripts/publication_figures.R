@@ -136,8 +136,8 @@ for( x in 1:length(unique(temp3$NodeName)) ) {
 png('graphs/dantas_class_all_samples.png', width=1200, height=900)
 g <- ggplot(temp3, aes(x=NodeName, y=SumAbundance, fill=Pipeline)) +
     geom_bar(stat='identity', position='dodge') +
-    theme(panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
+    theme(panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank(),
           strip.text.x=element_text(size=20),
           strip.text.y=element_text(size=20, angle=0),
           axis.text.y=element_text(size=20),
@@ -145,11 +145,11 @@ g <- ggplot(temp3, aes(x=NodeName, y=SumAbundance, fill=Pipeline)) +
           axis.title.x=element_text(size=24),
           axis.title.y=element_text(size=24),
           legend.position="bottom",
-          panel.margin=unit(0.1, "lines"),
+          #panel.margin=unit(0.1, "lines"),
           plot.title=element_text(size=30, hjust=0.5),
           legend.text=element_text(size=18),
           legend.title=element_blank()) +
-    xlab('\nAMR Drug Class') + ylab('Abundance\n') +
+    xlab('\nKnown Functional Metagenomics AMR Category') + ylab('Abundance\n') +
     scale_fill_brewer(palette = 'Set2', drop=F) + scale_y_continuous(labels = comma)
 print(g + ggtitle(paste('AMR Class Abundance by Pipeline\nSoil and Pediatric Test Sets')))
 dev.off()
@@ -223,7 +223,7 @@ g <- ggplot(performance_mmarc_dantas_class_data_plot, aes(x=AnalyticTruthLabel, 
           plot.title=element_text(size=30, hjust=0.5),
           legend.text=element_text(size=18),
           legend.title=element_blank()) + scale_y_continuous(labels = comma) +
-    xlab('\nFunctional Metagenomic Truth Label') + ylab('Percent of Reads On-Target\n')
+    xlab('\nKnown Functional Metagenomics AMR Category') + ylab('Percent of Reads On-Target\n')
 print(g + ggtitle(paste('Percent of Hits On-Target for each Truth Label\nby Test Set and Method\n')))
 dev.off()
 
@@ -301,7 +301,7 @@ g <- ggplot(performance_mmarc_dantas_class_data2_plot, aes(x=AnalyticTruthLabel,
           plot.title=element_text(size=30, hjust=0.5),
           legend.text=element_text(size=18),
           legend.title=element_blank()) + scale_y_continuous(labels = comma) +
-    xlab('\nFunctional Metagenomic Truth Label') + ylab('Percent of Reads On-Target\n')
+    xlab('\nKnown Functional Metagenomics AMR Category') + ylab('Percent of Reads On-Target\n')
 print(g + ggtitle(paste('Percent of Hits On-Target for each Truth Label\nby Test Set and Pipeline\n')))
 dev.off()
 
@@ -339,8 +339,8 @@ g <- ggplot(temp_plot, aes(x=AnalyticTruthLabel, fill=Pipeline)) +
     geom_bar(data=temp_plot, aes(y=TotalReadsIdentified), position='dodge', stat='identity') +
     geom_point(data=temp_plot, aes(y=NumberReadsOnTarget), position=position_dodge(width=0.9), shape=3, size=4) +
     facet_wrap(~TestSet, nrow=1, ncol=2, scale='free_y') +
-    theme(panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
+    theme(panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank(),
           strip.text.x=element_text(size=20),
           strip.text.y=element_text(size=20, angle=0),
           axis.text.y=element_text(size=20),
@@ -352,7 +352,7 @@ g <- ggplot(temp_plot, aes(x=AnalyticTruthLabel, fill=Pipeline)) +
           plot.title=element_text(size=30, hjust=0.5),
           legend.text=element_text(size=18),
           legend.title=element_blank()) +
-    xlab('\nFunctional Metagenomic Truth Label') + ylab('Number of Reads Identified\nTotal (bar) and True Positives (crosshair)\n') +
+    xlab('\nKnown Functional Metagenomics AMR Category') + ylab('Number of Reads Identified\nTotal (bar) and True Positives (crosshair)\n') +
     scale_fill_brewer(palette = 'Set2') + scale_y_continuous(labels = comma)
 print(g + ggtitle(paste('Total and On-Target Abundance for each Truth Label\nby Test Set and Pipeline\n')))
 dev.off()
@@ -364,20 +364,20 @@ dev.off()
 ############################
 ############################
 
-## Simulation data
-sim_data <- data.table(read.csv('analytic_data/mmarc_publication_simulation_results.csv'))
-class_sim_data <- sim_data[Level == 'Classes']
-class_sim_data$Level <- gsub('Classes', 'Class', class_sim_data$Level)
-colnames(class_sim_data) <- c('NodeName', 'AnnotationLevel', 'TruePositives', 'FalsePositives', 'FalseNegatives',
-                              'TrueNegatives', 'Sensitivity', 'Specificity')
-class_sim_data$NodeName <- gsub('MLS', 'Macrolides Lincosamides and Streptogramins', class_sim_data$NodeName)
-class_sim_data <- class_sim_data[, .SD, .SDcols=!c('AnnotationLevel', 'Specificity', 'Sensitivity')]
-setkey(class_sim_data, NodeName)
-
-class_sim_data[, Sensitivity := ( 100 * TruePositives / (TruePositives + FalseNegatives) )]
-class_sim_data[, Specificity := ( 100 * TrueNegatives / (TrueNegatives + FalsePositives) )]
-
-write.table(class_sim_data, 'graphs/mmarc_class_simulation_metrics.csv', sep=',', row.names=F, col.names=T)
+# ## Simulation data
+# sim_data <- data.table(read.csv('analytic_data/mmarc_publication_simulation_results.csv'))
+# class_sim_data <- sim_data[Level == 'Classes']
+# class_sim_data$Level <- gsub('Classes', 'Class', class_sim_data$Level)
+# colnames(class_sim_data) <- c('NodeName', 'AnnotationLevel', 'TruePositives', 'FalsePositives', 'FalseNegatives',
+#                               'TrueNegatives', 'Sensitivity', 'Specificity')
+# class_sim_data$NodeName <- gsub('MLS', 'Macrolides Lincosamides and Streptogramins', class_sim_data$NodeName)
+# class_sim_data <- class_sim_data[, .SD, .SDcols=!c('AnnotationLevel', 'Specificity', 'Sensitivity')]
+# setkey(class_sim_data, NodeName)
+# 
+# class_sim_data[, Sensitivity := ( 100 * TruePositives / (TruePositives + FalseNegatives) )]
+# class_sim_data[, Specificity := ( 100 * TrueNegatives / (TrueNegatives + FalsePositives) )]
+# 
+# write.table(class_sim_data, 'graphs/mmarc_class_simulation_metrics.csv', sep=',', row.names=F, col.names=T)
 
 #########################
 #########################
@@ -454,8 +454,8 @@ levels(temp2_plot$Pipeline) <- c('Alignment', 'Meta-MARC HTS Reads', 'Meta-MARC 
 png('graphs/ncba_class_all_samples.png', width=1200, height=900)
 g <- ggplot(temp2_plot, aes(x=NodeName, y=NodeAbundance, fill=Pipeline)) +
     geom_bar(stat='identity', position='dodge') +
-    theme(panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
+    theme(panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank(),
           strip.text.x=element_text(size=20),
           strip.text.y=element_text(size=20, angle=0),
           axis.text.y=element_text(size=20),
@@ -467,7 +467,7 @@ g <- ggplot(temp2_plot, aes(x=NodeName, y=NodeAbundance, fill=Pipeline)) +
           plot.title=element_text(size=30, hjust=0.5),
           legend.text=element_text(size=18),
           legend.title=element_blank()) +
-    xlab('\nAMR Drug Class') + ylab('Number of Reads Classified\n') +
+    xlab('\nAMR Class') + ylab('Number of Reads Classified\n') +
     scale_fill_discrete(drop=F) + scale_fill_brewer(palette = 'Set2') + scale_y_continuous(labels = comma)
 print(g + ggtitle(paste('AMR Class Abundance by Pipeline\nPRJNA292471 Metagenomic Data Set')))
 dev.off()
@@ -490,9 +490,7 @@ g <- ggplot(cov_data, aes(x=Coverage)) +
     geom_histogram(binwidth=0.03) + 
     geom_vline(xintercept=0.8, color='red', size=1) +
     facet_wrap(~TestSet, ncol=1) +
-    theme(panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          strip.text.x=element_text(size=20),
+    theme(strip.text.x=element_text(size=20),
           strip.text.y=element_text(size=20, angle=0),
           axis.text.y=element_text(size=20),
           axis.text.x=element_text(size=20),
@@ -590,8 +588,8 @@ png('graphs/dantas_top_pipeline_tpaccuracy_comparison.png', width=1200, height=9
 g <- ggplot(mtop, aes(x=TruthLabel, y=SampleCount, fill=Pipeline)) +
     geom_bar(stat='identity', position='dodge') + 
     facet_wrap(~MeasureVar, ncol=1) +
-    theme(panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
+    theme(panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank(),
           strip.text.x=element_text(size=20),
           strip.text.y=element_text(size=20, angle=0),
           axis.text.y=element_text(size=20),
@@ -603,7 +601,7 @@ g <- ggplot(mtop, aes(x=TruthLabel, y=SampleCount, fill=Pipeline)) +
           plot.title=element_text(size=30, hjust=0.5),
           legend.text=element_text(size=18),
           legend.title=element_blank()) +
-    xlab('\nFunctional Metagenomic Truth Label') + ylab('Number of Soil and Pediatric Samples\n') +
+    xlab('\nKnown Functional Metagenomics AMR Category') + ylab('Number of Soil and Pediatric Samples\n') +
     scale_fill_brewer(palette = 'Set2', drop=F)
 print(g + ggtitle(paste('Samplewise Pipeline Performance by Category\nTrue Positives and Accuracy')))
 dev.off()
