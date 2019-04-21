@@ -1,2 +1,5 @@
 graphs/dantas_samples/*
 manuscript/*
+simulation/build
+simulation/bin
+
